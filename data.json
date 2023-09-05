@@ -1,0 +1,26 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "category_name": "уход для волос",
+      "category_description": "шампуни , бальзам, маски"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "category_name": "кухонная утварь",
+      "category_description": "кастрюли ,сковородки"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "category_name": "фрукты",
+      "category_description": "яблоки, грущи например"
+    }
+  }
+]
