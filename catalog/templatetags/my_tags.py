@@ -5,7 +5,7 @@ register = template.Library()
 
 # фильтры
 @register.filter(name="slice")
-def split_data(text, value: int):
+def slice_data(text, value):
     return text[:value]
 
 
