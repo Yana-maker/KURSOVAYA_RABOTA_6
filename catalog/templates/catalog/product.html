@@ -1,10 +1,27 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags %}
-{% block menu %}
 
+{% block menu %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+
+            <a href="?page={{ page_obj.previous_page_number }}">предыдущий</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">следующий</a>
+
+        {% endif %}
+    </span>
+</div>
 <div class="row">
-  {% for object in object_list %}
-  <div class="col-md-4">
+    {% for object in page_obj %}
+    <div class="col-md-4">
     <div class="card-body">
 
       <p class="card-text d-flex justify-content-between align-items-center">
@@ -25,6 +42,7 @@
     </div>
   </div>
   {% endfor %}
+
 </div>
 
 {% endblock %}

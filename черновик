@@ -1,15 +1,3 @@
-{% extends 'catalog/base.html' %}
-{% load my_tags %}
-{% block menu %}
-
-<div class="row">
-  {% for object in object_list %}
-  <div class="col-md-4">
-    <div class="card-body">
-
-      <p class="card-text d-flex justify-content-between align-items-center">
-        {{object}}
-      </p>
 
       <p class="d-flex justify-content-between align-items-center">
         <img src="{{ object.product_image|mediapath }}" Width="250" Height="200">
@@ -22,9 +10,3 @@
       <p class="d-flex justify-content-between align-items-center">
         {{object.product_description|slice:100}}...
       </p>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-
-{% endblock %}
