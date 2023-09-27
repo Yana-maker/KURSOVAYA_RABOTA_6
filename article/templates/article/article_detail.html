@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% block menu %}
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Статья: "{{ object.title }}"
+                    </h3>
+                    <h5 class="card-title">
+                        slug: {{ object.slug}}
+                    </h5>
+                </div>
+                <div class="card-bode">
+                    <p>
+                        {{ object.text }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    Просмотры: {{ object.view_count }}
+                </div>
+            </div>
+
+          <div class="col-4">
+            <img src="/media/{{ object.preview }}" Width="300" Height="250"/>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

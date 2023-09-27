@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+{% block menu %}
+
+<div class="col-12-mb-4">
+  <a class="btn btn-outline-success" href="{% url 'article:create' %}">Добавить Статью</a>
+</div>
+
+{% for object in object_list %}
+  <div class="col-md-4">
+    <div class="card mb-4 box-shadow">
+      <div class="card-body">
+        <p class="card-text">
+          {{ object.title }}
+        </p>
+        <div class="d-flex-justify-content-between align-items-center">
+          <div class="btn-group">
+            <a href="{% url 'article:view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">view</a>
+            <a href="{% url 'article:edit' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">edit</a>
+            <a href="{% url 'article:delete' object.pk %}" type="button" class="btn btn-sm btn-outline-danger">delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}
