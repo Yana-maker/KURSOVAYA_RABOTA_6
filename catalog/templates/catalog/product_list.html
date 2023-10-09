@@ -1,0 +1,27 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+
+{% block content %}
+
+<div class="col-6-mb-5">
+  <a class="btn btn-outline-success" href="{% url 'catalog:create' %}">
+    ДОБАВИТЬ ПРОДУКТ</a>
+</div>
+{% for object in object_list %}
+
+<div class="col-6-mb-5">
+  <div class="card-body">
+    <img src="/media/{{ object.product_image }}" alt="Avatar" Width="300" Height="250">
+    <div class="container">
+      <h4><b>{{ object }}</b></h4>
+    </div>
+    <div class="btn-group">
+      <a href="{% url 'catalog:view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">view</a>
+      <a href="{% url 'catalog:edit' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">edit</a>
+      <a href="{% url 'catalog:delete' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">delete</a>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+{% endblock %}

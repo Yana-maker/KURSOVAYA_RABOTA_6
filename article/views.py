@@ -11,7 +11,7 @@ class ArticleCreateView(CreateView):
     fields = ('title', 'text', 'preview')
     success_url = reverse_lazy('article:list')
     extra_context = {
-        'title': 'Создание статьи'
+        'title': 'СОЗДАНИЕ СТАТЬИ'
     }
 
     def form_valid(self, form):
@@ -25,7 +25,7 @@ class ArticleCreateView(CreateView):
 class ArticleListView(ListView):
     model = Article
     extra_context = {
-        'title': 'Статьи'
+        'title': 'СТАТЬИ'
     }
 
     def get_queryset(self, *args, **kwargs):
@@ -37,7 +37,7 @@ class ArticleListView(ListView):
 class ArticleDetailView(DetailView):
     model = Article
     extra_context = {
-        'title': 'Инфо о статье'
+        'title': 'ИНФО И СТАТЬЕ'
     }
 
     def get_object(self, queryset=None):
@@ -51,7 +51,7 @@ class ArticleUpdateView(UpdateView):
     model = Article
     fields = ('title', 'text', 'preview')
     extra_context = {
-        'title': 'Редактирование Статьи'
+        'title': 'РЕДАКТИРОВАНИЕ СТАТЬИ'
     }
 
     def get_success_url(self):
@@ -69,5 +69,5 @@ class ArticleDeleteView(DeleteView):
     model = Article
     success_url = reverse_lazy('article:list')
     extra_context = {
-        'title': 'Удаление статьи'
+        'title': 'УДАЛЕНИЕ СТАТЬИ'
     }

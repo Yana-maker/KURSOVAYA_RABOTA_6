@@ -35,7 +35,7 @@ class Product(models.Model):
 
 class Contacts(models.Model):
     name = models.CharField(max_length=50, verbose_name="Имя")
-    email = models.EmailField(verbose_name="Почта")
+    email = models.EmailField(unique=True, verbose_name="Почта", **NULLABLE)
     massage = models.CharField(max_length=150, verbose_name="Краткое описание")
 
     class Meta:
@@ -45,3 +45,13 @@ class Contacts(models.Model):
 
 
 
+class Version(models.Model):
+    product_name = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='название продукта')
+    number_version = models.IntegerField(verbose_name='номер')
+    name_version = models.CharField(max_length=150, verbose_name='название версии')
+    indicates_the_current_version = models.BooleanField(default=1, verbose_name='признак текущей версии')
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
+        ordering = ('product_name',)
