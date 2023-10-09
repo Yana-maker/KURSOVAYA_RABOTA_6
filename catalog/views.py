@@ -1,7 +1,7 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from catalog.models import Product, Contacts
-from catalog.forms import ProductForm, ContactsForm
+from catalog.models import Product, Contacts, Version
+from catalog.forms import ProductForm, ContactsForm, VersionForm
 
 
 # Create your views here.
@@ -12,12 +12,29 @@ class ProductListView(ListView):
         'title': 'ГЛАВНАЯ'
     }
 
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
+        for product in context['object_list']:
+            active_version = product.version_set.filter(is_current_version=True).first()
+            if active_version:
+                product.active_number_version = active_version.number_version
+                product.active_name_version = active_version.name_version
+            else:
+                product.active_number_version = None
+                product.active_name_version = None
+
+        return context
+
 
 class ProductDetailView(DetailView):
     model = Product
     extra_context = {
         'title': 'ПРОСМОТР ПРОДУКТА'
     }
+
+
 
 
 class ProductCreateView(CreateView):
@@ -39,6 +56,11 @@ class ProductUpdateView(UpdateView):
         'title': 'РЕЛАКТИРОВАНИЕ ПРОДУКТА'
     }
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+
+        return context_data
+
 
 class ProductDeleteView(DeleteView):
     model = Product
@@ -49,9 +71,6 @@ class ProductDeleteView(DeleteView):
     }
 
 
-def toggle_activity():
-    pass
-
 
 class ContactsCreateView(CreateView):
     model = Contacts
@@ -60,4 +79,5 @@ class ContactsCreateView(CreateView):
     extra_context = {
         "title": "КОНТАКТЫ"
     }
+
 

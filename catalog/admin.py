@@ -27,6 +27,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Version)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('product_name', 'number_version', 'name_version', 'indicates_the_current_version',)
-    list_filter = ('product_name', 'number_version', 'name_version', 'indicates_the_current_version',)
+    list_display = ('product_name', 'number_version', 'name_version', 'is_current_version',)
+    list_filter = ('product_name', 'number_version', 'name_version', 'is_current_version',)
     search_fields = ('product_name', 'number_version', 'name_version',)

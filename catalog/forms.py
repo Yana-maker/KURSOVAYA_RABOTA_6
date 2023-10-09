@@ -1,5 +1,5 @@
 from django import forms
-from catalog.models import Product, Contacts
+from catalog.models import Product, Contacts, Version
 
 
 class ProductForm(forms.ModelForm):
@@ -24,6 +24,7 @@ class ProductForm(forms.ModelForm):
             raise forms.ValidationError('подобные слова нельзя вносить в описание')
         return cleaned_data
 
+
 class ContactsForm(forms.ModelForm):
     class Meta:
         model = Contacts
@@ -39,3 +40,9 @@ class ContactsForm(forms.ModelForm):
         if '@' not in cleaned_data:
             raise forms.ValidationError('почта должна содержать знак @')
         return cleaned_data
+
+
+class VersionForm(forms.ModelForm):
+    class Meta:
+        model = Version
+        fields = '__all__'
