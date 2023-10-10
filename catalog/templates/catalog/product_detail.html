@@ -30,5 +30,15 @@
                         Описание товара: {{object.product_description}}
                 </p>
         </div>
+
+        <div class="card-body">
+                {{ formset.management_form }}
+                    {% for form in formset.forms %}
+                        {{ form.as_p }}
+                        {% if not forloop.revcounter0 %}
+                            <hr>
+                        {% endif %}
+                    {% endfor %}
+        </div>
 </div>
 {% endblock %}

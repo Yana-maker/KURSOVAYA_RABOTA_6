@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 NULLABLE = {'null': True, 'blank': True}
 
+
 class Category(models.Model):
     category_name = models.CharField(max_length=150, verbose_name='название')
     category_description = models.CharField(max_length=150, verbose_name='описание')
@@ -14,6 +15,7 @@ class Category(models.Model):
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
         ordering = ('category_name',)
+
 
 class Product(models.Model):
     product_name = models.CharField(max_length=150, verbose_name='название')
@@ -44,12 +46,11 @@ class Contacts(models.Model):
         ordering = ('name',)
 
 
-
 class Version(models.Model):
     product_name = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='название продукта')
     number_version = models.IntegerField(verbose_name='номер')
     name_version = models.CharField(max_length=150, verbose_name='название версии')
-    is_current_version = models.BooleanField(default=True, verbose_name='признак текущей версии')
+    is_current_version = models.BooleanField(default=True, verbose_name='признак версии')
 
     class Meta:
         verbose_name = 'версия'

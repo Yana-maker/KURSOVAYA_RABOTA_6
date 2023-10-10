@@ -15,13 +15,13 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     def clean_product_name(self):
         cleaned_data = self.cleaned_data['product_name']
-        if 'казино' or 'криптовалюта' or 'крипта' or 'биржа' or 'биржа' or 'дешево' or 'бесплатно' in cleaned_data:
+        if 'казино' in cleaned_data:
             raise forms.ValidationError('подобные продукты нельзя создавать')
         return cleaned_data
 
     def clean_product_description(self):
         cleaned_data = self.cleaned_data['product_description']
-        if 'казино' or 'криптовалюта' or 'крипта' or 'биржа' or 'биржа' or 'дешево' or 'бесплатно' in cleaned_data:
+        if 'казино' in cleaned_data:
             raise forms.ValidationError('подобные слова нельзя вносить в описание')
         return cleaned_data
 

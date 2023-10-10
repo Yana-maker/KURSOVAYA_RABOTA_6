@@ -1,5 +1,5 @@
-from django.forms import formset_factory, inlineformset_factory
-from django.urls import reverse_lazy, reverse
+from django.forms import inlineformset_factory
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from catalog.models import Product, Contacts, Version
 from catalog.forms import ProductForm, ContactsForm, VersionForm
@@ -19,6 +19,7 @@ class ProductDetailView(DetailView):
     extra_context = {
         'title': 'ПРОСМОТР ПРОДУКТА'
     }
+
 
 
 class ProductCreateView(CreateView):
