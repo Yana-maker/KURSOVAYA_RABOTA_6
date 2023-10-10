@@ -1,3 +1,4 @@
+from django.forms import formset_factory, inlineformset_factory
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from catalog.models import Product, Contacts, Version
@@ -12,29 +13,12 @@ class ProductListView(ListView):
         'title': 'ГЛАВНАЯ'
     }
 
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-
-        for product in context['object_list']:
-            active_version = product.version_set.filter(is_current_version=True).first()
-            if active_version:
-                product.active_number_version = active_version.number_version
-                product.active_name_version = active_version.name_version
-            else:
-                product.active_number_version = None
-                product.active_name_version = None
-
-        return context
-
 
 class ProductDetailView(DetailView):
     model = Product
     extra_context = {
         'title': 'ПРОСМОТР ПРОДУКТА'
     }
-
-
 
 
 class ProductCreateView(CreateView):
@@ -46,6 +30,15 @@ class ProductCreateView(CreateView):
         'title': 'СОЗДАНИЕ ПРОДУКТА'
     }
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        VersionFormSet = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        if self.request.method == 'POST':
+            context['formset'] = VersionFormSet(self.request.POST)
+        else:
+            context['formset'] = VersionFormSet()
+        return context
+
 
 class ProductUpdateView(UpdateView):
     model = Product
@@ -53,13 +46,25 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('catalog:home')
 
     extra_context = {
-        'title': 'РЕЛАКТИРОВАНИЕ ПРОДУКТА'
+        'title': 'РЕДАКТИРОВАНИЕ ПРОДУКТА'
     }
 
     def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        VersionFormSet = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        if self.request.method == 'POST':
+            context['formset'] = VersionFormSet(self.request.POST)
+        else:
+            context['formset'] = VersionFormSet()
+        return context
 
-        return context_data
+    def form_valid(self, form):
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+        return super().form_valid(form)
 
 
 class ProductDeleteView(DeleteView):
@@ -71,7 +76,6 @@ class ProductDeleteView(DeleteView):
     }
 
 
-
 class ContactsCreateView(CreateView):
     model = Contacts
     form_class = ContactsForm
@@ -79,5 +83,3 @@ class ContactsCreateView(CreateView):
     extra_context = {
         "title": "КОНТАКТЫ"
     }
-
-
