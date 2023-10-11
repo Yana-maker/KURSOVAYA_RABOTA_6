@@ -12,15 +12,14 @@ class StyleFormMixin:
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
 
-    forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
-                            'радар']
+    forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
     class Meta:
         model = Product
         fields = '__all__'
 
-    def clean_name(self):
-        name = self.cleaned_data['name'].lower()
+    def clean_product_name(self):
+        name = self.cleaned_data['product_name'].lower()
 
         for word in self.forbidden_words:
             if word in name:
