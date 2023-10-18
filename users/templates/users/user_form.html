@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html '%}
+
+{% block content %}
+
+<div class="col-12">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3>
+                            Редактирование профила
+                        </h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-outline-primary form-control m-2">
+                        Сохранить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card_footer" >
+    <div  class="col-12">
+        <a href="{% url 'users:genpassword' %}" class="btn btn-danger">Сгенерировать пароль</a>
+    </div>
+</div>
+{% endblock %}

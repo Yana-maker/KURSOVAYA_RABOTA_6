@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -26,6 +27,7 @@ class Product(models.Model):
     product_created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     product_updated_at = models.DateTimeField(auto_now=True, verbose_name="дата посл изменения")
 
+    owner_product = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='добавил:')
     def __str__(self):
         return f"{self.product_name}"
 
