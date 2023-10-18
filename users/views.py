@@ -17,7 +17,7 @@ class RegisterView(CreateView):
     form_class = UserRegisterForm
     success_url = reverse_lazy('users:login')
 
-    '''def form_valid(self, form):
+    def form_valid(self, form):
         new_user = form.save()
 
         send_mail(
@@ -25,7 +25,7 @@ class RegisterView(CreateView):
             'поздравляем с успешной регистрацией',
             settings.EMAIL_HOST_USER,
             [new_user.email]
-        )'''
+        )
 
 
 class ProfileView(UpdateView):
@@ -39,12 +39,12 @@ class ProfileView(UpdateView):
 
 def generate_new_password(request):
     new_password = ''.join([str(random.randint(0, 9) for i in range(12))])
-    '''send_mail(
+    send_mail(
         "Вы сменили пароль",
         f'ваш новый пароль {new_password}',
         settings.EMAIL_HOST_USER,
         [request.user.email]
-    )'''
+    )
     request.user.set_password(new_password)
     request.user.save()
     return redirect(reverse('catalog:home'))
