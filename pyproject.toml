@@ -13,6 +13,7 @@ pillow = "^10.0.0"
 psycopg = "^3.1.10"
 ipython = "^8.15.0"
 pytils = "^0.4.1"
+djoser = "^2.2.0"
 
 
 [build-system]
