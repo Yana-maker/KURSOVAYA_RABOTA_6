@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 from users.apps import UserConfig
-from users.views import RegisterView, ProfileView, generate_new_password
+from users.views import RegisterView, ProfileView, generate_new_password, verification_check
 
 app_name = UserConfig.name
 

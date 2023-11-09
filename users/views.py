@@ -18,23 +18,24 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         new_user = form.save()
+        verification_code = (''.join([str(random.randint(0, 15) for i in range(16))]))
         send_mail(
             subject="Регистрация на сайте ",
-            message='Поздравляем с успешной регистрацией',
+            message=f'Поздравляем с успешной регистрацией , код для подтверждения {verification_code}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[new_user.email],
         )
         return super().form_valid(form)
 
 
-'''def verification_check(self, request):
+def verification_check(self, request):
     request.method = 'POST'
     user_input = request.POST.get('user_input')
     if user_input == request.user.verification_code:
         request.user.is_active = True
     else:
-        return "неверный код подтверждения"
-    f'ваш код для подтверждения почты - {verification_code}'''
+        return f"неверный код подтверждения " \
+               f"ваш код для подтверждения почты - {request.user.verification_code}"
 
 
 class ProfileView(UpdateView):
