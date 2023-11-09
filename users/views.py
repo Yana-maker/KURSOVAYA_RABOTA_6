@@ -19,11 +19,10 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         new_user = form.save()
         send_mail(
-            "Регисттрация на сайте ",
-            'поздравляем с успешной регистрацией',
-            settings.EMAIL_HOST_USER,
-            [new_user.email],
-            True,
+            subject="Регистрация на сайте ",
+            message='Поздравляем с успешной регистрацией',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[new_user.email],
         )
         return super().form_valid(form)
 
