@@ -1,3 +1,4 @@
+import secrets
 from random import random
 
 from django.conf import settings
@@ -14,11 +15,13 @@ from users.models import User
 class RegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
-    success_url = reverse_lazy('users:login')
+    success_url = reverse_lazy('users:verification')
 
     def form_valid(self, form):
         new_user = form.save()
-        verification_code = (''.join([str(random.randint(0, 15) for i in range(16))]))
+        verification_code = secrets.token_hex(nbytes=5)
+        new_user.code = verification_code
+        new_user.save()
         send_mail(
             subject="Регистрация на сайте ",
             message=f'Поздравляем с успешной регистрацией , код для подтверждения {verification_code}',
@@ -28,14 +31,21 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
 
-def verification_check(self, request):
-    request.method = 'POST'
-    user_input = request.POST.get('user_input')
-    if user_input == request.user.verification_code:
-        request.user.is_active = True
+def pass_verification(request):
+
+    if request.method == 'POST':
+        user_code = request.POST.get('code')
+        user = User.objects.get(code=user_code)
+
+
+        if user.code == user_code:
+            user.is_active = True
+            user.save()
+            return redirect(reverse('users:login'))
+
     else:
-        return f"неверный код подтверждения " \
-               f"ваш код для подтверждения почты - {request.user.verification_code}"
+        return render(request, 'users/verification_form.html')
+
 
 
 class ProfileView(UpdateView):
@@ -48,7 +58,7 @@ class ProfileView(UpdateView):
 
 
 def generate_new_password(request):
-    new_password = ''.join([str(random.randint(0, 9) for i in range(12))])
+    new_password = secrets.token_hex(nbytes=10)
     send_mail(
         "Вы сменили пароль",
         f'ваш новый пароль {new_password}',

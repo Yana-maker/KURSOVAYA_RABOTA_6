@@ -15,7 +15,11 @@
                 </div>
                 <div class="card-body">
                     {% csrf_token %}
-                    {{ form.as_p }}
+
+                    <div class="mb-3">
+                    <input type="text" name="code" placeholder="код подтверждения" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+
                     <button type="submit" class="btn btn-outline-primary form-control m-2">
                         Сохранить
                     </button>
