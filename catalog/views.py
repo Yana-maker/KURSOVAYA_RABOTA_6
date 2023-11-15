@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
@@ -7,14 +8,15 @@ from catalog.forms import ProductForm, ContactsForm, VersionForm
 
 # Create your views here.
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Product
+    permission_required = 'catalog.view_product'
     extra_context = {
         'title': 'ГЛАВНАЯ'
     }
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     extra_context = {
         'title': 'ПРОСМОТР ПРОДУКТА'
@@ -22,9 +24,10 @@ class ProductDetailView(DetailView):
 
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.add_product'
     success_url = reverse_lazy('catalog:home')
 
     extra_context = {
@@ -51,9 +54,10 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.change_product'
     success_url = reverse_lazy('catalog:home')
 
     extra_context = {
@@ -78,8 +82,9 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
+    permission_required = 'catalog.delete_product'
     success_url = reverse_lazy('catalog:home')
 
     extra_context = {
