@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
@@ -8,6 +11,7 @@ from catalog.forms import ProductForm, ContactsForm, VersionForm
 
 # Create your views here.
 
+
 class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Product
     permission_required = 'catalog.view_product'
@@ -16,8 +20,9 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     }
 
 
-class ProductDetailView(LoginRequiredMixin, DetailView):
+class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Product
+    permission_required = 'catalog.view_product'
     extra_context = {
         'title': 'ПРОСМОТР ПРОДУКТА'
     }

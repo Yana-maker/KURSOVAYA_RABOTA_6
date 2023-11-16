@@ -26,6 +26,7 @@ class Product(models.Model):
     product_price = models.IntegerField(verbose_name='цена')
     product_created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     product_updated_at = models.DateTimeField(auto_now=True, verbose_name="дата посл изменения")
+    is_published = models.BooleanField(default=False, verbose_name="статус публикации")
 
     owner_product = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='добавил:')
     def __str__(self):
@@ -35,6 +36,13 @@ class Product(models.Model):
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
         ordering = ('product_price',)
+
+        permissions = [
+            (
+                'set_published',
+                 'Can publish posts'
+            )
+        ]
 
 
 class Contacts(models.Model):

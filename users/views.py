@@ -35,7 +35,7 @@ class RegisterView(CreateView):
         )
         return super().form_valid(form)
 
-@login_required
+
 def pass_verification(request):
 
 
