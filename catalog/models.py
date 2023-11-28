@@ -28,7 +28,9 @@ class Product(models.Model):
     product_updated_at = models.DateTimeField(auto_now=True, verbose_name="дата посл изменения")
     is_published = models.BooleanField(default=False, verbose_name="статус публикации")
 
-    owner_product = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='добавил:')
+    owner_product = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE,
+                                      verbose_name='добавил:')
+
     def __str__(self):
         return f"{self.product_name}"
 
@@ -39,8 +41,8 @@ class Product(models.Model):
 
         permissions = [
             (
-                'set_published',
-                 'Can publish posts'
+                'set_is_published',
+                'Can publish posts'
             )
         ]
 
@@ -66,3 +68,10 @@ class Version(models.Model):
         verbose_name = 'версия'
         verbose_name_plural = 'версии'
         ordering = ('product_name',)
+
+        permissions = [
+            (
+                'set_is_published',
+                'Can publish posts'
+            )
+        ]

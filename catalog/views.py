@@ -12,8 +12,10 @@ from catalog.forms import ProductForm, ContactsForm, VersionForm
 # Create your views here.
 
 
+
 class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Product
+
     permission_required = 'catalog.view_product'
     extra_context = {
         'title': 'ГЛАВНАЯ'
@@ -85,6 +87,19 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
             formset.instance = self.object
             formset.save()
         return super().form_valid(form)
+
+    def get_form(self, form_class=None):
+        """
+        Если у пользователя нет прав на редактирование поля удаляем его из формы.
+        """
+        form = super().get_form(form_class)
+        if self.object.owner_product != self.request.user:
+            product_fields = [f for f in form.fields.keys()]
+            for field in product_fields:
+                if not self.request.user.has_perm(f'catalog.set_{Product.product_description}'):
+                    del form.fields[field]
+        return form
+
 
 
 class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
