@@ -39,12 +39,15 @@ class Product(models.Model):
         verbose_name_plural = 'продукты'
         ordering = ('product_price',)
 
-        permissions = [
-            (
-                'set_is_published',
-                'Can publish posts'
-            )
-        ]
+        permissions = (
+
+            ('set_product_description',
+             'set product_description продукт'),
+            ('set_product_category',
+             'set product_category продукт'),
+            ('set_product_price',
+             'set product_price продукт'),
+        )
 
 
 class Contacts(models.Model):
@@ -69,9 +72,4 @@ class Version(models.Model):
         verbose_name_plural = 'версии'
         ordering = ('product_name',)
 
-        permissions = [
-            (
-                'set_is_published',
-                'Can publish posts'
-            )
-        ]
+

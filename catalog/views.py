@@ -95,8 +95,9 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
         form = super().get_form(form_class)
         if self.object.owner_product != self.request.user:
             product_fields = [f for f in form.fields.keys()]
+
             for field in product_fields:
-                if not self.request.user.has_perm(f'catalog.set_{Product.product_description}'):
+                if not self.request.user.has_perm(f'catalog.set{field}'):
                     del form.fields[field]
         return form
 
