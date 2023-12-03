@@ -42,11 +42,11 @@ class Product(models.Model):
         permissions = (
 
             ('set_product_description',
-             'set product_description продукт'),
+             'редактирование описания продукта'),
             ('set_product_category',
-             'set product_category продукт'),
+             'редактирование категории продукт'),
             ('set_product_price',
-             'set product_price продукт'),
+             'редактирования цены продукт'),
         )
 
 

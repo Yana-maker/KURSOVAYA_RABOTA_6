@@ -97,7 +97,7 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
             product_fields = [f for f in form.fields.keys()]
 
             for field in product_fields:
-                if not self.request.user.has_perm(f'catalog.set{field}'):
+                if not self.request.user.has_perm(f'catalog.{field}'):
                     del form.fields[field]
         return form
 
@@ -120,3 +120,5 @@ class ContactsCreateView(CreateView):
     extra_context = {
         "title": "КОНТАКТЫ"
     }
+
+
