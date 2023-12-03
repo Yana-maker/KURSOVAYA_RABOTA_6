@@ -40,7 +40,30 @@ INSTALLED_APPS = [
     'catalog',
     'article',
     'users',
+    'mailing',
 ]
+
+'''STATUS = {
+    1:'завершена',
+    2:'создана',
+    3:'запущена',
+}'''
+
+STATUS = (
+    ('завершена', 'завершена'),
+    ('создана', 'создана'),
+    ('запущена', 'запущена'),
+)
+
+STATUS_ATTEMPT = (
+    ('УСПЕШНО', 'УСПЕШНО'),
+    ('НЕ УСПЕШНО', 'НЕ УСПЕШНО'),
+)
+
+'''STATUS_ATTEMPT = {
+    1:'УСПЕШНО',
+    2:'НЕ УСПЕШНО',
+}'''
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
