@@ -13,4 +13,10 @@ class StyleFormMixin:
 class Text_MailingForm(StyleFormMixin):
     class Meta:
         model = Text_Mailing
-        fields = ('subject', 'body',)
+        fields = ('subject', 'body', 'mailing',)
+
+
+class ClientForm(StyleFormMixin):
+    class Meta:
+        model = Client
+        fields = '__all__'

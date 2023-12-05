@@ -30,6 +30,7 @@
                 <li><a class="nav-link active" aria-current="page" href="{% url 'catalog:home' %}">Главная</a></li>
                 <li><a class="nav-link" href="{% url 'catalog:contacts' %}">Контакты</a></li>
                 <li><a class="nav-link" href="{% url 'article:list' %}">Статьи</a></li>
+                <li><a class="nav-link" href="{% url 'mailing:list' %}">рассылки</a></li>
                 {% if user.is_authenticated %}
                     <li><a class="nav-link" href="{% url 'users:logout' %}">Выйти</a></li>
                     <li><a class="nav-link" href="{% url 'users:profile' %}">редактировать профиль</a></li>

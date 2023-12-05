@@ -18,6 +18,7 @@ class Client(models.Model):
         verbose_name_plural = 'клиенты'
         ordering = ('client_fio',)
 
+
 class Frequency:
     choises = (
         ("ежедневно", "daily"),
@@ -29,10 +30,10 @@ class Frequency:
 class Mailing(models.Model):
     name = models.CharField(verbose_name='название')
     time = models.DateTimeField(verbose_name='время и дата рассылки')
-    frequency = models.CharField(max_length=11, choices=Frequency.choises, default='daily',verbose_name='периодичность')
+    frequency = models.CharField(max_length=11, choices=Frequency.choises, default='daily',
+                                 verbose_name='периодичность')
     mailing_status = models.CharField(default='создана', choices=settings.STATUS, **NULLABLE, verbose_name='статус')
     client_email = models.ManyToManyField('Client', verbose_name='клиенты', **NULLABLE)
-
 
     def __str__(self):
         return f'{self.name}'
@@ -55,6 +56,7 @@ class Text_Mailing(models.Model):
         verbose_name = 'Сообщение для рассылки'
         verbose_name_plural = 'Сообщения для рассылки'
         ordering = ('subject',)
+
 
 class Log_Mailing(models.Model):
     datatime_last_attempt = models.DateTimeField(verbose_name='дата и время последней попытки')
