@@ -18,12 +18,21 @@ class Client(models.Model):
         verbose_name_plural = 'клиенты'
         ordering = ('client_fio',)
 
+class Frequency:
+    choises = (
+        ("ежедневно", "daily"),
+        ("еженедельно", "weekly"),
+        ("ежемесячно", "monthly"),
+    )
+
 
 class Mailing(models.Model):
     name = models.CharField(verbose_name='название')
-    time = models.TimeField(verbose_name='время рассылки')
-    frequency = models.IntegerField(verbose_name='периодичность')
+    time = models.DateTimeField(verbose_name='время и дата рассылки')
+    frequency = models.CharField(max_length=11, choices=Frequency.choises, default='daily',verbose_name='периодичность')
     mailing_status = models.CharField(default='создана', choices=settings.STATUS, **NULLABLE, verbose_name='статус')
+    client_email = models.ManyToManyField('Client', verbose_name='клиенты', **NULLABLE)
+
 
     def __str__(self):
         return f'{self.name}'
@@ -37,7 +46,7 @@ class Mailing(models.Model):
 class Text_Mailing(models.Model):
     subject = models.CharField(verbose_name='тема письма')
     body = models.CharField(verbose_name='тело письма')
-    name = models.ForeignKey(Mailing, verbose_name='название', on_delete=models.CASCADE, **NULLABLE)
+    mailing = models.ForeignKey(Mailing, verbose_name='название', on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
         return f"{self.subject}"
@@ -47,11 +56,12 @@ class Text_Mailing(models.Model):
         verbose_name_plural = 'Сообщения для рассылки'
         ordering = ('subject',)
 
-
 class Log_Mailing(models.Model):
     datatime_last_attempt = models.DateTimeField(verbose_name='дата и время последней попытки')
-    status_attempt = models.CharField(default='НЕ УСПЕШНО', choices=settings.STATUS_ATTEMPT, verbose_name='статус попытки')
+    status_attempt = models.CharField(default='НЕ УСПЕШНО', choices=settings.STATUS_ATTEMPT,
+                                      verbose_name='статус попытки')
     answer_mail_server = models.TextField(**NULLABLE, verbose_name='ответ почтового сервера, если он был')
+    mailing = models.ForeignKey(Mailing, verbose_name='название', on_delete=models.DO_NOTHING, **NULLABLE)
 
     def __str__(self):
         return f"{self.answer_mail_server}"
@@ -60,4 +70,3 @@ class Log_Mailing(models.Model):
         verbose_name = 'Лог рассылки'
         verbose_name_plural = 'Логи рассылки'
         ordering = ('status_attempt',)
-

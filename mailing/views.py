@@ -9,7 +9,7 @@ from mailing.models import Text_Mailing
 # Create your views here.
 
 
-class ProductCreateView(CreateView):
+class MailingCreateView(CreateView):
     model = Text_Mailing
     form_class = Text_MailingForm
     success_url = reverse_lazy('main:home')
@@ -19,7 +19,7 @@ class ProductCreateView(CreateView):
     }
 
 
-class ProductUpdateView(UpdateView):
+class MailingUpdateView(UpdateView):
     model = Text_Mailing
     success_url = reverse_lazy('main:update')
 

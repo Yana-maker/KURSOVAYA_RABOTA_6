@@ -60,10 +60,7 @@ STATUS_ATTEMPT = (
     ('НЕ УСПЕШНО', 'НЕ УСПЕШНО'),
 )
 
-'''STATUS_ATTEMPT = {
-    1:'УСПЕШНО',
-    2:'НЕ УСПЕШНО',
-}'''
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
