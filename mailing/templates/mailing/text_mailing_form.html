@@ -1,19 +1,14 @@
+
 {% extends 'catalog/base.html' %}
-{% load my_tags %}
 
 {% block content %}
 
-<div class="col-6-mb-5">
-  <a class="btn btn-outline-success" href="{% url 'mailing:create' %}">
-    ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ </a>
-</div>
+
 {% for object in object_list %}
 
 <div class="col-6-mb-5">
   <div class="card-body">
-    <div class="container">
       <h4><b>{{ object }}</b></h4>
-    </div>
   </div>
 </div>
 

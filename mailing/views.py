@@ -8,7 +8,7 @@ from mailing.models import Text_Mailing, Client, Log_Mailing, Mailing
 class ClientCreateView(CreateView):
     model = Client
     form_class = ClientForm
-    success_url = reverse_lazy('client:list')
+    success_url = reverse_lazy('mailing:list')
 
     extra_context = {
         'title': 'ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯ ДЛЯ РАССЫЛОК'
@@ -65,7 +65,7 @@ class MailingUpdateView(UpdateView):
 class Text_MailingCreateView(CreateView):
     model = Text_Mailing
     form_class = Text_MailingForm
-    success_url = reverse_lazy('text_mailing:list')
+    success_url = reverse_lazy('mailing:list')
 
     extra_context = {
         'title': 'СОЗДАНИЕ ТЕКСТА ДЛЯ РАССЫЛКИ'
