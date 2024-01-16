@@ -1,5 +1,5 @@
 from django import forms
-from mailing.models import Client, Mailing, Text_Mailing
+from mailing.models import Client, Text_Mailing, Log_Mailing
 
 
 class StyleFormMixin:
@@ -7,7 +7,6 @@ class StyleFormMixin:
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
-
 
 
 class Text_MailingForm(StyleFormMixin):
@@ -19,4 +18,11 @@ class Text_MailingForm(StyleFormMixin):
 class ClientForm(StyleFormMixin):
     class Meta:
         model = Client
-        fields = '__all__'
+        fields = ('client_email', 'client_fio', 'client_comment',)
+
+
+class Log_MailingForm(StyleFormMixin):
+    class Meta:
+        model = Log_Mailing
+        fields = ('datatime_last_attempt', 'status_attempt', 'answer_mail_server', 'mailing',)
+

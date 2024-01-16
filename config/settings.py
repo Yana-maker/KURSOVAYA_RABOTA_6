@@ -43,11 +43,7 @@ INSTALLED_APPS = [
     'mailing',
 ]
 
-'''STATUS = {
-    1:'завершена',
-    2:'создана',
-    3:'запущена',
-}'''
+
 
 STATUS = (
     ('завершена', 'завершена'),
@@ -98,7 +94,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres2',
+        'NAME': 'term_project6',
         'USER': 'postgres',
         'PASSWORD': 432502,
         'HOST': 'localhost',
