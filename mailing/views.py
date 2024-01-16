@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView
 
-from mailing.forms import Text_MailingForm, ClientForm, Log_MailingForm
-from mailing.models import Text_Mailing, Client, Log_Mailing
+from mailing.forms import Text_MailingForm, ClientForm, Log_MailingForm, MailingForm
+from mailing.models import Text_Mailing, Client, Log_Mailing, Mailing
 
 
 class ClientCreateView(CreateView):
@@ -11,7 +11,7 @@ class ClientCreateView(CreateView):
     success_url = reverse_lazy('client:list')
 
     extra_context = {
-        'title': 'ДОБАВЛЕИНЕ ПОЛЬЗОВАТЕЛЯ ДЛЯ РАССЫЛОК'
+        'title': 'ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯ ДЛЯ РАССЫЛОК'
     }
 
 
@@ -24,31 +24,69 @@ class ClientListView(ListView):
     }
 
 
+class ClientUpdateView(UpdateView):
+    model = Client
+    form_class = ClientForm
+
+    extra_context = {
+        'title': 'РЕДАКТИРОВАНИЕ ПОЛЬЗОВАТЕЛЕЙ ДЛЯ РАССЫЛОК'
+    }
+
+
 class MailingCreateView(CreateView):
-    model = Text_Mailing
-    form_class = Text_MailingForm
+    model = Mailing
+    form_class = MailingForm
     success_url = reverse_lazy('mailing:list')
 
     extra_context = {
-        'title': 'СОЗДАНИЕ РАССЫЛКИ'
+        'title': 'СОЗДАНИЕ ПЕРИОДИЧНОСТИ ДЛЯ РАССЫЛКИ'
     }
 
 
 class MailingListView(ListView):
-    model = Text_Mailing
-    form_class = Text_MailingForm
+    model = Mailing
+    form_class = MailingForm
 
     extra_context = {
-        'title': 'РАССЫЛКИ'
+        'title': 'ПРОСМОТР СПИСКА ПЕРИОДИЧНОСТИ РАССЫЛОК'
     }
 
 
 class MailingUpdateView(UpdateView):
-    model = Text_Mailing
+    model = Mailing
+    form_class = MailingForm
     success_url = reverse_lazy('mailing:list')
 
     extra_context = {
-        'title': 'РЕДАКТИРОВАНИЕ РАССЫЛКИ'
+        'title': 'РЕДАКТИРОВАНИЕ ПЕРИОДИЧНОСТИ РАССЫЛКИ'
+    }
+
+
+class Text_MailingCreateView(CreateView):
+    model = Text_Mailing
+    form_class = Text_MailingForm
+    success_url = reverse_lazy('text_mailing:list')
+
+    extra_context = {
+        'title': 'СОЗДАНИЕ ТЕКСТА ДЛЯ РАССЫЛКИ'
+    }
+
+
+class Text_MailingListView(ListView):
+    model = Text_Mailing
+    form_class = Text_MailingForm
+
+    extra_context = {
+        'title': 'ПРОСМОТР ТЕКСТА ДЛЯ РАССЫЛКИ'
+    }
+
+
+class Text_MailingUpdateView(UpdateView):
+    model = Text_Mailing
+    form_class = Text_MailingForm
+
+    extra_context = {
+        'title': 'РЕДАКТИРОВАНИЕ ТЕКСТА ДЛЯ РАССЫЛКИ'
     }
 
 
