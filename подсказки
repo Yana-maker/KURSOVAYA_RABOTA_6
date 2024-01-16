@@ -1,0 +1,22 @@
+git status - просмотр изменений
+git add . - добавление всех файлов, которые были изменены.
+git commit -m 'comment' - добавления комментарий к своим изменений перед загрузкой в репозиторий
+git push origin main - загрузка изменинй в удаленный репозиторий на гитхаб, main - это название ветки , которую нужно обновить
+pip freeze > requirements.txt - сохранение всех зависимостей в файл txt
+
+
+
+
+
+
+      <p class="d-flex justify-content-between align-items-center">
+        <img src="{{ object.product_image|mediapath }}" Width="250" Height="200">
+      </p>
+
+      <p class="d-flex justify-content-between align-items-center">
+        {{object.product_price}} руб
+      </p>
+
+      <p class="d-flex justify-content-between align-items-center">
+        {{object.product_description|slice:100}}...
+      </p>
