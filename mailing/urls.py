@@ -1,10 +1,10 @@
 from django.urls import path
 
-from catalog.apps import CatalogConfig
+from mailing.apps import MailingConfig
 from mailing.views import MailingCreateView, MailingUpdateView, MailingListView, ClientCreateView, ClientListView, \
     ClientUpdateView, Text_MailingCreateView, Text_MailingListView, Text_MailingUpdateView
 
-app_name = CatalogConfig.name
+app_name = MailingConfig.name
 
 urlpatterns = [
 
